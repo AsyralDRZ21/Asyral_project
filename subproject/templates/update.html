@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Visitor - KPM Beranang</title>
+    <style>
+       /* Background and font styles */
+body {
+  background-color: #fff6e0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  text-align: center; /* Center the heading text */
+}
+
+h1 {
+  color: #716040; /* Use the theme color */
+  font-size: 36px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #c4a4de; /* Add a subtle text shadow */
+}
+
+strong {
+  font-size: 24px;
+}
+
+/* Form styles */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 2px solid #716040; /* Use the theme color */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+form input[type="submit"] {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #8c7851; /* Use the theme color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #716040; /* Darker theme color on hover */
+}
+
+/* Link styles */
+a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #8c7851; /* Use the theme color */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #716040; /* Darker theme color on hover */
+}
+/* Hall ID */
+form select[name="HallID"],
+form select[name="ProgramID"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+
+form select[name="HallID"] option {
+  font-size: 18px;
+}
+
+form select[name="ProgramID"] option {
+  font-size: 18px;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Update program - KPM Beranang</h1>
+    <strong>Please fill in the Event details below:</strong>
+    <form action="{% url 'update' LecturerID=LecturerID event_id=event.EventID %}" method="post">
+        {% csrf_token %}
+        <label for="EventID">Event ID:</label>
+        <input type="text" name="EventID" id="EventID" value="{{event.EventID}}" >
+        <label for="EventDate">Event Date:</label>
+        <input type="date" name="EventDate" id="EventDate" value="{{ event.EventDate|date:'Y-m-d' }}">
+        <label for="EventTime">Event Time:</label>
+        <input type="text" name="EventTime" id="EventTime" value="{{ event.EventTime}}">
+        <!-- Hall ID -->
+        <label for="HallID">Hall ID:</label>
+        <select type='text' name="HallID" id="HallID">
+            {% for hall in halls %}
+                <option value="{{ hall.HallID }}" {% if event.HallID_id == hall.HallID %}selected{% endif %}>{{ hall.HallID }}</option>
+            {% endfor %}
+        </select>
+        <!-- Program ID -->
+        <label for="ProgramID">Program ID:</label>
+        <select name="ProgramID" id="ProgramID">
+            {% for program in programs %}
+                <option value="{{ program.ProgramID }}" {% if event.ProgramID_id == program.ProgramID %}selected{% endif %}>{{ program.ProgramID }}</option>
+            {% endfor %}
+        </select>
+                <input type="submit" value="Update">
+    </form>
+    <br><br><br>
+    <a href="/LectView/{{ LecturerID }}/">BACK</a>
+</body>
+</html>
+

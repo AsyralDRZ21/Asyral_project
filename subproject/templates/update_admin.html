@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Event - Admin</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            min-height: 100vh;
+            background-color: #fef6e4;
+            color: #34495e;
+        }
+
+        h2,
+        h3,
+        a {
+            color: #34495e;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .header {
+            height: 80px;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            border: 1px solid #a2a2a2;
+            background-color: #f4f4f4;
+            box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #293462;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            font-size: 36px;
+            text-shadow: 1px 1px 2px #c4a4de;
+        }
+
+        form {
+            margin: 0 auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #8c7851;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #6f2378;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #8c7851;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #6f2378;
+        }
+    </style>
+</head>
+<body>
+    <h2>Update Event - Admin</h2>
+    <form method="POST" action="{% url 'update_admin' event_id=event.EventID %}">
+        {% csrf_token %}
+        <label for="event_id">Event ID:</label>
+        <input type="text" name="event_id" id="event_id" value="{{ event.EventID }}" readonly>
+        <br>
+        <label for="event_date">Event Date:</label>
+        <input type="date" name="event_date" id="event_date" value="{{ event.EventDate }}">
+        <br>
+        <label for="event_time">Event Time:</label>
+        <input type="time" name="event_time" id="event_time" value="{{ event.EventTime }}">
+        <br>
+        <label for="hall_id">Hall:</label>
+        <select name="hall_id" id="hall_id">
+            {% for hall in halls %}
+            <option value="{{ hall.HallID }}" {% if event.HallID_id == hall.HallID %}selected{% endif %}>{{ hall.HallID }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="program_id">Program:</label>
+        <select name="program_id" id="program_id">
+            {% for program in programs %}
+            <option value="{{ program.ProgramID }}" {% if event.ProgramID_id == program.ProgramID %}selected{% endif %}>{{ program.ProgramID }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Update Event">
+    </form>
+    <p><a href="{% url 'admin_view' %}">Back to Admin View</a></p>
+</body>
+</html>

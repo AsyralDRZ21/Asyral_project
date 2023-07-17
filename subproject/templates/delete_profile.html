@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #e3f2fd; /* Light blue color */
+            font-family: Arial, sans-serif; /* Optional: Choose your preferred font-family */
+            color: #333; /* Optional: Set the text color */
+        }
+
+        .dashboard-box {
+            background-color: #fff; /* White background color for the dashboard box */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a nice effect */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5; /* Light gray background color for table header */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray background color for even rows */
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+        .actions a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #2196F3; /* Blue color for action buttons */
+            color: #fff; /* Text color for action buttons */
+            border-radius: 4px;
+        }
+
+        .actions a:hover {
+            background-color: #1976D2; /* Darker blue color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-box">
+        <h2>Your Profile: Hello There! Have a Great Day</h2>
+        <table>
+            <tr>
+                <th>Lecturer ID</th>
+                <th>Lecturer Name</th>
+                <th>Lecturer Password</th>
+                <th>Actions</th>
+            </tr>
+            {% for lecturer in Lect %}
+            <tr>
+                <td>{{ lecturer.LecturerID }}</td>
+                <td>{{ lecturer.LecturerName }}</td>
+                <td>{{ lecturer.LecturerPass }}</td>
+                <td>
+                    <form method="POST" action="{% url 'delete_profile' lecturer.LecturerID %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="actions">
+            <a href="/my_page/update/student/">Update Information</a>
+            <a href="/my_page/delete/student/">Delete Account</a>
+        </div>
+    </div>
+    
+</body>
+</html>

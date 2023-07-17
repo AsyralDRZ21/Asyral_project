@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        /* Body Styles */
+        body {
+            background-color: #fef6e4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Register Wrap Styles */
+        .register-wrap {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #716040;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        /* Error Message Styles */
+        .error-message {
+            color: red;
+        }
+
+        /* Form Styles */
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #8c7851;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #eaddcf;
+        }
+
+        a {
+            color: #020826;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-wrap">
+        <h1>Register</h1>
+
+        <!-- Error message section -->
+        {% if error_message %}
+          <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <form action="tryreg" method="POST">
+          {% csrf_token %}
+
+          <input type="text" id="LecturerID" placeholder="Lecturer ID" name="LecturerID" required>
+          <input type="text" id="LecturerName" placeholder="Lecturer Name" name="LecturerName" required>
+          <div class="password-toggle">
+            <input type="password" id="student_password" placeholder="Password" name="LecturerPass" required>
+            <span class="toggle-icon hide" id="toggle_password">
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
+          <button type="submit">Register</button>
+          <br><br>
+          <a href="/">Back</a>
+        </form>
+      </div>
+</body>
+</html>
+

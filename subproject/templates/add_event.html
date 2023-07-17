@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Visitor</title>
+    <style>
+body {
+  background-color: #f9f4ef;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #020826;
+}
+
+.note {
+  font-size: 12px;
+  color: #999;
+}
+
+h1 {
+  color: #020826;
+  text-align: center;
+  margin-top: 50px;
+}
+
+form {
+  width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+select {
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  background-color: #eaddcf;
+  color: #020826;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #8c7851;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #716040;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #8c7851;
+  text-decoration: none;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Lecturer add event Calendar</h1> 
+    
+    <form method="POST" action="{% url 'add_event' lecturer_id=lecturer_id %}">    
+        {% csrf_token %}
+        <label for="EventID">Event ID:</label>
+        <input type="text" name="EventID" required>
+        <span class="note">Example: E123</span><br>
+
+    
+        <label for="EventDate">Event Date:</label>
+        <input type="date" name="EventDate" required><br>
+    
+        <label for="EventTime">Event Time:</label>
+        <input type="time" name="EventTime" required><br>
+    
+        <!-- Hall ID -->
+        <label for="HallID">Hall :</label>
+        <select name="HallID" id="HallID">
+            {% for hall in halls %}
+                <option value="{{ hall.HallID }}" {% if event.HallID_id == hall.HallID %}selected{% endif %}>{{ hall.HallName }}</option>
+            {% endfor %}
+        </select>
+        <!-- Program ID -->
+        <label for="ProgramID">Program Type:</label>
+        <select name="ProgramID" id="ProgramID">
+            {% for program in programs %}
+                <option value="{{ program.ProgramID }}" {% if event.ProgramID_id == program.ProgramID %}selected{% endif %}>{{ program.ProgramName }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+    
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    
+    <a href="/LectView/{{ lecturer_id }}/">BACK</a>
+    
+</body>
+</html>

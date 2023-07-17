@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPMB Visitor Tracking Form</title>
+    <style>
+        /* Body Styles */
+        body {
+            background-image: linear-gradient(45deg, #8c7851, #fef6e4);
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styles */
+        h1 {
+            color: #293462;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            font-size: 36px;
+            text-shadow: 1px 1px 2px #c4a4de;
+        }
+
+        /* Table Styles */
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #293462;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #293462;
+            color: white;
+            text-shadow: 1px 1px 2px #c4a4de;
+        }
+
+        /* Link Styles */
+        a {
+            color: #8c7851;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #8c7851;
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #8c7851;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #eaddcf;
+        }
+
+        /* Link Styles */
+        a {
+            color: #9c36b5;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #8c7851;
+        }
+
+        /* Profile Button Styles */
+        .profile-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #8c7851;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .profile-button:hover {
+            background-color: #eaddcf;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>KPMB Event calendar Form</h1>
+    <a href="{% url 'update_profile' lecturer.pk %}" class="profile-button">Profile</a>
+    <table>
+        <thead>
+            <tr>
+                <th>EventID</th>
+                <th>EventDate</th>
+                <th>EventTime</th>
+                <th>HallID</th>
+                <th>ProgramID</th>
+                <th>LecturerID</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.EventID }}</td>
+                <td>{{ event.EventDate }}</td>
+                <td>{{ event.EventTime }}</td>
+                <td>{{ event.HallID_id }}</td>
+                <td>{{ event.ProgramID_id }}</td>
+                <td>{{ event.LecturerID_id }}</td>
+                <td><a href="{% url 'update' LecturerID=event.LecturerID.LecturerID event_id=event.EventID %}" class="button">Update</a></td>
+                <td><a href="{% url 'delete_event' LecturerID=event.LecturerID.LecturerID event_id=event.EventID %}" class="button">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p style="text-align: center; margin-top: 50px;">
+        <a href="{% url 'add_event' lecturer_id=lecturer.LecturerID %}" class="button">Add Program</a>
+    </p>
+    
+    <p style="text-align: center; margin-top: 50px;"><a href="{% url 'homepage' %}" class="button">Log out</a></p>
+</body>
+    

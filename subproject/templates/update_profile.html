@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile page</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      background-color: #fef6e4;
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      height: 30px;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      height: 30px;
+      background-color: #8c7851;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>-Profile-</h2>
+    <form method="POST" action="{% url 'update_profile' lecturer.pk %}">
+      {% csrf_token %}
+      <input type="text" id="LecturerID" name="LecturerID" placeholder="ID" value="{{ lecturer.LecturerID }}" required>
+      <br>
+      <input type="text" id="LecturerName" name="LecturerName" placeholder="Name" value="{{ lecturer.LecturerName }}" required>
+      <br>
+      <input type="password" id="LecturerPass" name="LecturerPass" placeholder="Password" value="{{ lecturer.LecturerPass }}" required>
+      <br>
+      <input type="submit" value="Update">
+    </form>
+    <form method="POST" action="{% url 'delete_profile' lecturer.pk %}">
+      {% csrf_token %}
+      <input type="submit" value="Delete Account" onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
+    </form>
+    
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+    <a class="back-link" href="/LectView/{{ lecturer.pk }}/">Back</a>
+  </div>
+</body>
+</html>
+
+
